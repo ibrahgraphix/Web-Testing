@@ -262,3 +262,60 @@ Qst5.click()
 time.sleep(3)
 driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 time.sleep(3)
+
+# Cybergrooming Section
+driver.find_element(By.XPATH, "//button[normalize-space()='Next']").click()
+time.sleep(3)
+
+#Video
+wait = WebDriverWait(driver, 15)
+video = wait.until(EC.presence_of_element_located((By.XPATH, "//video[@class='video shadow']")))
+driver.execute_script("arguments[0].play();", video)
+time.sleep(60)
+
+#Take quiz
+wait = WebDriverWait(driver, 20)
+take_quiz_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Take Quiz']")))
+take_quiz_button.click()
+time.sleep(2)
+
+# Questions
+Q1= driver.find_element(By.LINK_TEXT, "True")
+Q1.click()
+time.sleep(2)
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click() 
+time.sleep(3)
+
+Q2= driver.find_element(By.XPATH, "//section[@class='main-conrainer scrolly']//li[1]//a[1]") 
+Q2.click()
+time.sleep(3)
+driver.find_element(By.XPATH, "//button[normalize-space()='Next']").click()
+time.sleep(3)
+
+Q3= driver.find_element(By.LINK_TEXT, "False")
+Q3.click()
+time.sleep(3)
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+time.sleep(3)
+
+Q4= driver.find_element(By.XPATH, "//span[normalize-space()='All of the above']")
+Q4.click()
+time.sleep(3)
+driver.find_element(By.XPATH, "//button[normalize-space()='Next']").click()
+time.sleep(3)
+
+Q5= driver.find_element(By.XPATH, "//span[normalize-space()='Inform parents/elders']")
+Q5.click()
+time.sleep(3)
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+time.sleep(3)
+
+loader = WebDriverWait(driver, 20)
+take_quiz_button = loader.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Next']")))
+take_quiz_button.click()
+time.sleep(2)
+
+checker = WebDriverWait(driver, 20)
+take_quiz_button = checker.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Download']")))
+take_quiz_button.click()
+time.sleep(2)
