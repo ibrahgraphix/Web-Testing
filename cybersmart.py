@@ -37,9 +37,16 @@ def safe_select_by_text(driver, by, value, visible_text, description="", wait_ti
 
 #Main Code start here..
 
+# Set up download directory
+download_dir = os.path.abspath("downloads")  # Create 'downloads' folder in your project
+
 chrome_options = Options()
-chrome_options.add_argument('--headless')  # ✅ Add this
-chrome_options.add_argument('--disable-gpu')  # ✅ Optional for compatibility
+chrome_options.add_experimental_option('prefs', {
+    "download.default_directory": download_dir,
+    "plugins.always_open_pdf_externally": True,  # Auto-download PDFs
+    "download.prompt_for_download": False,
+    "profile.default_content_settings.popups": 0,
+})
 
 driver = webdriver.Chrome(options=chrome_options)
 driver.maximize_window()
@@ -327,16 +334,12 @@ take_quiz_button = checker.until(EC.element_to_be_clickable((By.XPATH, "//button
 take_quiz_button.click()
 time.sleep(2)
 
-pdf_data = driver.execute_cdp_cmd("Page.printToPDF", {
-    "landscape": False,
-    "printBackground": True,
-    "preferCSSPageSize": True
-})
 
-# Save to file
-with open("certificate.pdf", "wb") as f:
-    import base64
-    f.write(base64.b64decode(pdf_data['data']))
+#Now interact with dropdwon using Select Class
+dropdown_element= driver.find_element(By.CLASS_NAME, "md-select")
+select= Select(dropdown_element)
 
-print("✅ Certificate saved as PDF.")
+#Select any option
+select.select_by_visible_text("Save as PDF")
+time.sleep(3)
 
